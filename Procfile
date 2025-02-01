@@ -1,0 +1,1 @@
+web: build/install/example/bin/Application-Notes
