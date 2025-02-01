@@ -42,7 +42,7 @@ fun Application.configureSecurity() {
 
             verifier(
                  JWT
-                .require(Algorithm.HMAC512(System.getenv("JWT_SECRET")))
+                .require(Algorithm.HMAC512(System.getenv("JWT_SECRET") ?: "JaiShreeRam"))
                 .withIssuer("noteServer")
                 .build())
             realm = "Note Server"

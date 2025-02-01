@@ -22,13 +22,16 @@ object DatabaseFactory {
     }
 
     private fun hikari() : HikariDataSource {
-        val config = HikariConfig()
-        config.driverClassName = System.getenv("JDBC_DRIVER")
-        config.jdbcUrl = System.getenv("DATABASE_URL")
-        config.maximumPoolSize = 3
-        config.isAutoCommit = false
-        config.transactionIsolation = "TRANSACTION_REPEATABLE_READ"
-        config.validate()
+        val config = HikariConfig().apply {
+            driverClassName = System.getenv("JDBC_DRIVER") ?: "org.postgresql.Driver"
+            jdbcUrl = System.getenv("DATABASE_URL") ?: "jdbc:postgresql://localhost:8081/notes_db"
+            username = System.getenv("DB_USER") ?: "postgres"
+            password = System.getenv("DB_PASSWORD") ?: "Vasu@4002"
+            maximumPoolSize = 3
+            isAutoCommit = false
+            transactionIsolation = "TRANSACTION_REPEATABLE_READ"
+            validate()
+        }
 
         return HikariDataSource(config)
     }
